@@ -1,22 +1,15 @@
 --------------------------------------------------------------------------------
--- Company: 
--- Engineer:
+-- Company: USAFA DFECE
+-- Engineer: C3C Ian Goodbody
 --
 -- Create Date:   11:40:37 07/10/2012
--- Design Name:   
+-- Design Name:   PRISM
 -- Module Name:   C:/My_Designs/ECE281_Xilinx14/PRISM_test/ALU_testbench.vhd
 -- Project Name:  PRISM_test
--- Target Device:  
--- Tool versions:  
--- Description:   
 -- 
 -- VHDL Test Bench Created by ISE for module: ALU
 -- 
--- Dependencies:
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
+-- Additional Comments: Constructed to test the 7 functions of the ALU module
 --
 -- Notes: 
 -- This testbench has been automatically generated using types std_logic and

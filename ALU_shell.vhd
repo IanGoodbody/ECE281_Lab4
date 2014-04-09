@@ -3,6 +3,7 @@
 -- Title       : ALU
 -- Design      : ALU
 -- Author      : usafa
+-- CoAuthor		: C3C Ian Goodbody
 -- Company     : usafa
 --
 -------------------------------------------------------------------------------
@@ -14,7 +15,10 @@
 --
 -------------------------------------------------------------------------------
 --
--- Description : 
+-- Description : The algorthmic logic unit module functions as the computational 
+-- component of the PRISM computer. It performs various logic and arithmetic
+-- functions, but more generally controlls what value is in the accumulator 
+-- register, the main operating value of the computer.
 --
 -------------------------------------------------------------------------------
 
@@ -92,6 +96,7 @@ aluswitch: process (Accumulator, Data, OpSel)
 		end process;
 
 -- OR, enter your conditional signal statement here
+-- I will pass on that thanks :)
 
 end ALU;
 
