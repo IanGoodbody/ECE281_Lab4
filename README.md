@@ -32,7 +32,7 @@ The ALU was tested and debugged using the provided ALU_testbench.vhd file. The t
 
 ![alt text](https://raw2.github.com/IanGoodbody/ECE281_Lab4/master/ALU_test.jpg "ALU Testbench Waveform")
 
-The waveform image provided has been overlaid with identifying markers to ease demonstration. Each segment between yellow vertical lines represents a single instruction cycle with the name of the instruction provided below each segment. Each set of accumulator, data, and OpSel inputs were analyzed separately to ensure that the "Result" output corresponded with which values were expected. 
+The waveform image provided has been overlaid with identifying markers to ease demonstration, yellow vertical lines seperate different instructions and red numbering on the right side of the waveform shows the values that cut off by the viewing range. Each segment between yellow vertical lines represents a single instruction cycle with the name of the instruction provided below each segment. Each set of accumulator, data, and OpSel inputs were analyzed separately to ensure that the "Result" output corresponded with which values were expected. 
 
 The only major bug found in the code during debugging was that the "rotate right" instruction executed like a "rotate left" which indicated that the index rotation used in the code was backwards. Analyzing the code indicated that the indexes were incremented in ROR, the indexes were reassigned in decremented order accordingly.
 
