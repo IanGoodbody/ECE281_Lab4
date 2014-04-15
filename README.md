@@ -86,11 +86,11 @@ The final porion of the lab was to reverse engineeir segments of the program exp
 |110 ns|06|4|OUT|D|D|03|
 |130 ns|07|0|NOP|D|D|07|
 
-Prior to 16 ns the PRISM computer has been reset to the zero statem, and the instruction is a NOP. By 16 ns the program counter has incremented to 01 alongside the "addr" signal and the value previously on the "data" signal, 7, is loaded into the IR indicating a "load immediately" command, provided in memory location 01
+Prior to 16 ns the PRISM computer has been reset to the zero state and the instruction is a NOP;, however the program has alread loaded 7 from memory location 00. By 16 ns the program counter has incremented to 01 alongside the "addr" signal and the value previously on the "data" signal, 7, is loaded into the IR indicating a "load immediately" command.
 
-By 28 ns the program counter and "addr" address signal have incremented to 02, and from that memory location the value B has been loaded ontot the databus. PRISM instructions indicate that the next signal after LADI will be the value to be loadedand at 58 ns the B value found at 02 is loaded intot he accumulator.
+By 28 ns the program counter and "addr" address signal have incremented to 02; however it is the value B from loaction 01 that currently resides on the "data" bus. PRISM instructions indicate that the next signal after LADI will be the value to be loaded and at 58 ns the B value found at 01 is loaded intot he accumulator.
 
-By 58 ns the PC and addr values have moved onto the next memory location, and a new instruction has been loaded form the "data" bus into the instruction register. This value, 3, corresponds to a ROR command which affects the value in the accumulaotr. By 78 ns the accumulaor value has rotated from B to D.
+By 58 ns the PC and addr values have moved onto the next memory location, and a new instruction has been loaded form the previous memory location 02 to the "data" bus, and from there into the instruction register. This value, 3, corresponds to a ROR command which affects the value in the accumulaotr. By 78 ns the accumulaor value has rotated from B to D.
 
 After the next incremntation in the proogram counter at 93 ns the 4 signal that was previously on the "data" bus has been loaded into the instruction register, and the "data" bus signal has assumed the next value in memory 3. Because the 4 signal corresponds with the OUT instruction the 3 in "data" corresponds with the address of the output port. consequently at 110 ns the "addr" signal has assumed a value of 03 (instead of following the program counter) and the "data" bus is set to D essentially writing the value at the accumulator to the memory address 3.
 
@@ -100,3 +100,28 @@ In summary the first 150 of the program load a decimal 11 or hexidecimal B into 
 
 #### Jump Instruction
 
+![alt text](https://raw.githubusercontent.com/IanGoodbody/ECE281_Lab4/master/Jump.jpg "Reverse Engineering Wave")
+
+The second portion of the signal to be analized is the jump command shown in the waveform above, as before a simplified table is provided to highlight the convenient signals.
+
+|Time|PC|IR|Instruction|data|accumulator|addr|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|190 ns|0A|D|STA|B|D|0A|
+|200 ns|0B|B|JN|2|D|0B|
+|220 ns|0C|B|JN|0|B|03|
+|230 ns|0D|B|JN|7|D|02|
+|240 ns|02|B|JN|3|D|02|
+|250 ns|03|3|ROR|4|D|03|
+
+At the 190 ns mark the instruction D, STA, has just complted storing the accumulator value into memory. The main focus at this time is the B value in the "data" bus that has been read from memory location 0A.
+
+At 200 ns this B value is loaded into the instruction register to corresopnd with the JN or "jump when negative instruction" which jumps to a specified memory location if the value in the accumulator is a two's compliment negative. This is determined by the "alesszero" signal shown in the bottom of the waveform. The accumlator value is HIGH all though the period analyzed.
+
+The next two memory inputs, located at 0B and 0C give the jump location for the JN command. These value sare loaded at 200 ns 220 ns respectively into the databus and then into the MARHi and MARlo registers as shown on teh waveform. 
+At 230 ns the signal is transitioning. The address bus has changed to 02, however the program counter is on its incremented instruction and 7, likely the instruction located at 0D is in the "data" bus.
+
+By 240 ns the program counter has jumped back to 02 and the 3 from that memory location, corresponding with the ROR command, is loaded in the "data" bus. The ROR command begins execution at 250 ns and the program begins to cycle as before.
+
+In summary, this portion of the program checks if the accumulator value is negative and if so jumps the program back to memory location 02 containing a ROR command. In sequence the first and second code blocks will rotate the accumulator value until it is less than an unsigned 8 corresponding to a positive two's compliment number. Given the origional input B, the program will cycle thrice from B, to D, to F, and finally to 7 which will be stored in memory and the program will continue on from there. The PRISM GUI realization for these first two sections is shown below.
+
+![alt text](https://raw.githubusercontent.com/IanGoodbody/ECE281_Lab4/master/PRISM.jpg "PRISM Code")
