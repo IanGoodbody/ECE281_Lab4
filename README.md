@@ -38,4 +38,20 @@ The only major bug found in the code during debugging was that the "rotate right
 
 After the debugging cycle all input values displayed the correct result values. Although all values for every instruction were not tested exhaustively, the simplistic nature of the ALU structure provides a good level of confidence in the limited results presented.
 
-After several debugging cycles each input set produced the proper expected output. 
+After several debugging cycles each input set produced the proper expected output.
+
+### Datapath
+
+#### Design
+
+The datapath system was implemented based on the schematic above. The areas of intrest are the busses annotated in bold and the output and internal signals labeled in blue. The realization of the datapath system was then simplified by breaking it into roughly eight indpentent components: the program counter in the center of the schematic containing the PC register, incrementer, and the multiplexer situated above the register; the instruction register shown in the upper left corner of the schematic; the MARHi and MARLo memory address registers located betweent the program counter and the instruction register; the address selector multiplexer located below the program counter; the ALU component, which was designed and tested in the previous section, shown in the upper right; the accumulator register connected below the ALU; the tristate buffer for accumulator databus feedback signal; and finally the two output signals "accumulaotr equals zero" and "accumulator less than zero" shown in the lower right of the schematic.
+
+Appart from the two ouput signals, which were realized using combinational logic blocks, and the ALU, which existed as a standalone component, the components above were realized using process statements. Each register was controled using an enable switch, updating clock signal, and an asyncronous reset low switch that reset all regisers to zero when a LOW signal is applied. The multiplexer was realized with an asyncronus process to match the behavior of a practical device. 
+
+Each componented was "wired" into the different signals labeled in blue in the diagram.
+
+#### Debugging
+
+Most of the debugging that took place due to mistypings in the datapath VHDL code which casued several signals to be updated several times while other signals were not assigned at all. These errors were noted in analyzing the waveform below and noting which signals showed no changes. The debugging process was essentially trivial and does not necessitated excessive explinatino.
+
+Verrification of the datapath code was conducted by comparing the datapath waveform to the example provided in the lab assignment sheet, both signals are shown below for coparison.
