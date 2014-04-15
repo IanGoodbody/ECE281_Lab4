@@ -54,4 +54,8 @@ Each componented was "wired" into the different signals labeled in blue in the d
 
 Most of the debugging that took place due to mistypings in the datapath VHDL code which casued several signals to be updated several times while other signals were not assigned at all. These errors were noted in analyzing the waveform below and noting which signals showed no changes. The debugging process was essentially trivial and does not necessitated excessive explinatino.
 
-Verrification of the datapath code was conducted by comparing the datapath waveform to the example provided in the lab assignment sheet, both signals are shown below for coparison.
+Verrification of the datapath code was conducted by comparing the datapath waveform to the example provided in the lab assignment sheet, both signals are shown below for comparison.
+
+The discrepency shown in the clock signal is due to the fact that the measurements were taken approximately 5 ns appart from one another, only the clock signal changed within the period and the remainder of the signals can be verrified correct upon simple inspection.
+
+### Program Reverse Engineering
